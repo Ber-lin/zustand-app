@@ -1,0 +1,24 @@
+:where(div) :where(button,span){
+    color: #fff;
+    background-color: cornflowerblue;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 8px;
+}
+:is(.fruits,.list) button{
+    color: #fff;
+    background-color: pink;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 8px;
+}
+p{
+    color: #fff;
+    font-size: 14px;
+    font-weight: normal;
+}
+div:has(h2){
+    color: blueviolet;
+    font-size: 20px;
+    font-weight: 700;
+}
