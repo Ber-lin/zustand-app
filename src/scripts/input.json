@@ -1,0 +1,9 @@
+{
+  "name": "moment",
+  "age": 30,
+  "hobbies": ["篮球", 7, true],
+  "address": {
+    "street": "二仙桥",
+    "city": "陕西西安"
+  }
+}

@@ -21,4 +21,5 @@ div:has(h2){
     color: blueviolet;
     font-size: 20px;
     font-weight: 700;
+    background-image: radial-gradient(circle at 50% 70%,transparent 120px,rgba(255,255,255,0.5) 0px);
 }

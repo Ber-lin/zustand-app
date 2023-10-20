@@ -1,0 +1,42 @@
+.cat-img {
+
+    width: 200px;
+    height: 200px;
+    background-color: antiquewhite;
+    
+  }
+
+  .cat-details {
+    display: flex;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  .cat-desc {
+    flex: 1;
+  }
+  
+  .top-bar {
+    /* display: flex;
+    justify-content: space-between;
+    align-items: start; */
+  }
+  
+  .top-bar-content {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  .thumbnail {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .detailed-img {
+    width: 400px;
+    height: 400px;
+  }
+  

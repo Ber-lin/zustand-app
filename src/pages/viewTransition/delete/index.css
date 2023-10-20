@@ -1,0 +1,34 @@
+html,body{
+    margin: 0;
+    height: 100%;
+    display: flex;
+    /* justify-content: center; */
+    flex-direction: column;
+    align-items: center;
+    background: aliceblue;
+  }
+  .list{
+    display: grid;
+    /* width: 600px; */
+    gap: 20px;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-flow: row dense;
+
+  }
+  .item{
+    width: 100px;
+    aspect-ratio: 1/1;
+    background: royalblue;
+    color: #fff;
+    font-size: 30px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+  }
+  
+
+  .item{
+    view-transition-name: var(--i);
+  }
