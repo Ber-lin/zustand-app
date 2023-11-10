@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/circle.css" />
+  </head>
+  <body>
+    <div class="progress-circle">
+      <svg>
+        <circle
+          stroke="var(--inactive-color)"
+          style="
+            stroke-dasharray: calc(
+                3.1415 * var(--r) * var(--active-degree) / 180
+              ),
+              calc(3.1415 * var(--r) * var(--gap-degree) / 180);
+          "
+        />
+        <circle
+          stroke="var(--color)"
+          class="progress-value"
+          style="
+            stroke-dasharray: calc(
+                3.1415 * var(--r) * var(--percent) * var(--active-degree) / 180 /
+                  100
+              ),
+              1000;
+          "
+        />
+      </svg>
+    </div>
+
+    <p>
+      <label>进度</label>
+      <input
+        type="range"
+        min="0"
+        max="100"
+        value="0"
+        oninput="changeDemo(this, '--percent')"
+      />
+    </p>
+    <p>
+      <label>尺寸大小</label>
+      <input
+        type="range"
+        min="80"
+        max="300"
+        value="180"
+        oninput="changeDemo(this, '--size', 'px')"
+      />
+    </p>
+    <p>
+      <label>环度/粗细</label>
+      <input
+        type="range"
+        min="1"
+        max="40"
+        value="15"
+        oninput="changeDemo(this, '--border-width', 'px')"
+      />
+    </p>
+    <p>
+      <label>缺口夹角</label>
+      <input
+        type="range"
+        min="0"
+        max="360"
+        value="90"
+        oninput="changeDemo(this, '--gap-degree')"
+      />
+    </p>
+    <p>
+      <label>主色</label>
+      <input
+        type="color"
+        value="#7856d7"
+        oninput="changeDemo(this, '--color')"
+      />
+    </p>
+    <p>
+      <label>辅助色</label>
+      <input
+        type="color"
+        value="#cccccc"
+        oninput="changeDemo(this, '--inactive-color')"
+      />
+      <button
+        onclick="changeDemo({ value: 'transparent' }, '--inactive-color')"
+      >
+        透明
+      </button>
+    </p>
+    <script>
+      const progressEl = document.querySelector(".progress-circle");
+
+      function changeDemo({ value }, property, unit = "") {
+        progressEl.style.setProperty(property, value + unit);
+      }
+    </script>
+  </body>
+</html>

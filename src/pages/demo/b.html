@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/b.css" />
+  </head>
+  <body>
+    <output>
+      <sup>$</sup>
+      <div id="$demo">
+        <span></span>
+        <comma></comma>
+        <span>9</span>
+        <span>9</span>
+        <span>9</span>
+      </div>
+    </output>
+
+    <fieldset>
+      <input type="range" min="0" max="2023" value="999" id="$demoslide" />
+      <input type="number" min="0" max="2023" value="999" id="$demonum" />
+    </fieldset>
+    <script>
+      const $numbers = $demo.querySelectorAll(":scope > span");
+      const $comma = $demo.querySelector("comma");
+
+      $demoslide.onchange = morph;
+
+      $demoslide.oninput = () => {
+        $demonum.value = $demoslide.value;
+      };
+
+      $demonum.onchange = () => {
+        $demoslide.value = $demonum.value;
+        morph();
+      };
+
+      function morph() {
+        if (document?.startViewTransition) {
+          $comma.textContent = $demoslide.value > 999 ? "," : "";
+
+          document
+            .startViewTransition(() => {
+              // 拿前四位的每一项
+              const eachNumber = $demoslide.value.padStart(4).split("");
+
+              eachNumber.forEach((val, i) => {
+                if ($numbers[i].textContent === val)
+                  $numbers[i].style.viewTransitionName = "none";
+                else $numbers[i].textContent = val;
+              });
+            })
+            .finished.then(() => {
+              Array.from($numbers).forEach((val, i) => {
+                $numbers[i].style.viewTransitionName = null;
+              });
+            });
+        }
+      }
+    </script>
+  </body>
+</html>

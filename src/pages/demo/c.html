@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/c.css">
+    <link rel="stylesheet" href="./css/circle.css">
+  </head>
+  <body>
+    <ol id="$demo">
+      <li draggable="true" style="view-transition-name: card-1">CSS</li>
+      <li draggable="true" style="view-transition-name: card-2">HTML</li>
+      <li draggable="true" style="view-transition-name: card-3">JS</li>
+      <li
+        draggable="true"
+        style="view-transition-name: yes-this-keeps-animating-during-morph"
+      >
+        <picture>
+          <source
+            srcset="
+              https://fonts.gstatic.com/s/e/notoemoji/latest/1f92f/512.webp
+            "
+            type="image/webp"
+          />
+          <img
+            src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f92f/512.gif"
+            alt="勞"
+            width="125"
+            height="125"
+          />
+        </picture>
+      </li>
+      <li
+        draggable="true"
+        style="view-transition-name: a-really-long-list-item-for-funsies"
+      >
+        If you're gonna build a time machine into a car, why not do it with some
+        style?
+      </li>
+    </ol>
+    <script>
+      const drag = {
+        src: null,
+        items: $demo.querySelectorAll(":scope > li"),
+      };
+
+      function handleDrop(e) {
+        e?.stopPropagation();
+
+        if (drag.src != this) {
+          if (document.startViewTransition)
+            document.startViewTransition(() => swapSiblings(drag.src, this));
+          else swapSiblings(drag.src, this);
+        }
+      }
+
+      function handleDragStart(e) {
+        requestAnimationFrame(() => {
+          this.style.opacity = ".4";
+        });
+        e.dataTransfer.setData("text/html", this.outerHTML);
+        drag.src = this;
+        // e.dataTransfer.effectAllowed = 'move'
+      }
+
+      function handleDragOver(e) {
+        e?.preventDefault();
+        // e.dataTransfer.dropEffect = 'move'
+      }
+
+      function handleDragEnter(e) {
+        this.classList.add("over");
+      }
+
+      function handleDragLeave(e) {
+        this.classList.remove("over");
+      }
+
+      function handleDragEnd(e) {
+        this.style.opacity = "1";
+
+        drag.items.forEach((item) => {
+          item.classList.remove("over");
+        });
+      }
+
+      function swapSiblings(sib1, sib2) {
+        let p1 = sib1.previousSibling;
+        let p2 = sib2.previousSibling;
+
+        p1.after(sib2);
+        p2.after(sib1);
+      }
+
+      drag.items.forEach((item) => {
+        item.addEventListener("dragstart", handleDragStart, false);
+        item.addEventListener("dragenter", handleDragEnter, false);
+        item.addEventListener("dragover", handleDragOver, false);
+        item.addEventListener("dragleave", handleDragLeave, false);
+        item.addEventListener("drop", handleDrop, false);
+        item.addEventListener("dragend", handleDragEnd, false);
+      });
+    </script>
+    <img src="./circle.svg" alt="">
+  </body>
+</html>

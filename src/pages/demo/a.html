@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        display: flex;
+        /* justify-content: center; */
+        flex-direction: column;
+        align-items: center;
+        background: aliceblue;
+      }
+      .list {
+        display: grid;
+        /* width: 600px; */
+        gap: 20px;
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-flow: row dense;
+      }
+      .item {
+        width: 100px;
+        aspect-ratio: 1/1;
+        background: royalblue;
+        color: #fff;
+        font-size: 30px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .item {
+        view-transition-name: var(--i);
+      }
+    </style>
+  </head>
+  <body>
+    <h2>点击删除</h2>
+    <div class="list" id="list">
+      <div class="item" style="--i: a1">1</div>
+      <div class="item" style="--i: a2">2</div>
+      <div class="item" style="--i: a3">3</div>
+      <div class="item" style="--i: a4">4</div>
+      <div class="item" style="--i: a5">5</div>
+      <div class="item" style="--i: a6">6</div>
+      <div class="item" style="--i: a7">7</div>
+      <div class="item" style="--i: a8">8</div>
+      <div class="item" style="--i: a9">9</div>
+      <div class="item" style="--i: a10">10</div>
+    </div>
+    <script>
+      list.addEventListener("click", function (ev) {
+        if (ev.target.className === "item") {
+          if (document.startViewTransition) {
+            document.startViewTransition(() => {
+              ev.target.remove();
+            });
+          } else {
+            ev.target.remove();
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

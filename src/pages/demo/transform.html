@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        height: 1000px;
+      }
+      /* .pic {
+        width: 400px;
+      } */
+      div {
+        position: absolute;
+        top: 500px;
+        left: 500px;
+      }
+      .img {
+        width: 200px;
+        height: 200px;
+        margin-right: 10px;
+      }
+      .mask {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(18, 18, 18, 0.65);
+        transition: all 0.3s;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <img class="img" src="../../assets/头像2.jpg" alt="" />
+      <p>1111aaaaaaaaaaaaaa</p>
+      <!-- <img class="img" src="../../assets/头像2.jpg" alt="" />
+      <img class="img" src="../../assets/头像2.jpg" alt="" />
+      <img class="img" src="../../assets/头像2.jpg" alt="" />
+      <img class="img" src="../../assets/头像2.jpg" alt="" /> -->
+    </div>
+    <script>
+      const pic = document.getElementsByClassName("img")[0];
+      pic.addEventListener("click", () => {
+        pic2 = pic.cloneNode();
+        picToTop = pic.getBoundingClientRect().top;
+        picToLeft = pic.getBoundingClientRect().left;
+        picWidth = pic.width;
+        picHeight = pic.height;
+
+        pic2.style.position = "absolute";
+        pic2.style.left = `${picToLeft}px`;
+        pic2.style.top = `${picToTop}px`;
+
+        const mask = document.createElement("div");
+        mask.classList.add("mask");
+        // 5，将元素添加到body中
+        mask.appendChild(pic2);
+        document.body.appendChild(mask);
+
+        setTimeout(() => {
+          // 7，隐藏原图片
+          pic.style.visibility = "hidden";
+          // 8，设置预览图片展示宽度以及位置
+          pic2.style.position = "absolute";
+          pic2.style.transition = "all .3s";
+        //   pic2.style.willChange = "auto";
+          //   pic2.style.width = "80%";
+          pic2.style.left = "50%";
+          pic2.style.top = `50%`;
+          pic2.style.transform=`scale(1.5) translate(-${Math.floor(picWidth/2)}px,-${Math.floor(picHeight/2)}px)`
+        }, 0);
+        mask.addEventListener("click", function () {
+          // 10，预览图回到原图位置
+        //   pic2.style.width = `${picWidth}px`;
+          pic2.style.left = `${picToLeft}px`;
+          pic2.style.top = `${picToTop}px`;
+          pic2.style.transform = "";
+          // 12，显示原图
+          setTimeout(() => {
+            pic.style.visibility = "visible";
+            // 13，删除蒙层以及预览图
+            this.remove();
+          }, 300);
+        });
+      });
+      
+    </script>
+  </body>
+</html>

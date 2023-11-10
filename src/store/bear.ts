@@ -11,9 +11,10 @@ export const useBearStore = create(
     increase: (by: number) => set((state) => ({ bears: state.bears + by })),
   }))
 );
-interface Deep{
-    obj:any;
-    updateName:(name:string)=>void
+interface Deep {
+  obj: any;
+  addUser: (name: string) => void;
+  updateName: (name: string) => void;
 }
 export const useDeepBear = create<Deep>((set) => ({
   obj: {
@@ -21,6 +22,44 @@ export const useDeepBear = create<Deep>((set) => ({
       name: "?",
     },
   },
-  updateName: (name:string) =>
-    set(produce((state) => { state.obj.user.name=name })),
+  addUser: (name: string) =>
+    set(
+      produce((state) => {
+        state.obj.user2 = { name };
+      })
+    ),
+  updateName: (name: string) =>
+    set(
+      produce((state) => {
+        state.obj.user.name = name;
+      })
+    ),
+}));
+interface Params {
+  params: any;
+  updateParams: (property: string, subProperty: string, value: string) => void;
+  updateParam: (property: string, value: string) => void;
+}
+export const useParams = create<Params>((set) => ({
+  params: {
+    filter: {
+      contrast: '(100%)',
+      grayscale: '(0%)',
+    },
+  },
+  updateParams: (property: string, subProperty: string, value: string) =>
+    set(
+      produce((state: Params) => {
+        state.params[property][subProperty] = value;
+      })
+    ),
+  updateParam: (property: string, value: string) =>
+    set(
+      produce((state: Params) => {
+        state.params[property] = value;
+      })
+    ),
+  // addUser:(name:string)=>set(produce((state)=>{state.obj.user2={name}})),
+  // updateName: (name:string) =>
+  //   set(produce((state) => { state.obj.user.name=name })),
 }));
