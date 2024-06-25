@@ -1,12 +1,29 @@
+// 引入同路径下
+@import "variation";
+// 引入其他路径，less后缀可省略
+@import url(../../styles/a);
+
+@width: 100px * 2;
+@height: @width;
+.will-change {
+  will-change: auto;
+}
 .container {
-  height: 1200px;
-  width: 800px;
-  overflow: scroll-y;
-  border: 1px solid;
+  // .position-ab();
+  // position: absolute;
+  top: 500px;
+  left: 500px;
   .img {
-    width: 200px;
-    height: 200px;
+    width: @width;
+    height: @height;
     margin-right: 10px;
+  }
+  p {
+    // 取命名空间内容
+    #bundle > .color-red();
+    #bundle > .color-blue();
+    // 函数调用
+    .mixin( dark,red);
   }
 }
 .mask {
@@ -17,4 +34,5 @@
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.3);
   transition: all 0.3s;
+  .will-change();
 }

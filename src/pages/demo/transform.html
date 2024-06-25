@@ -45,6 +45,7 @@
       const pic = document.getElementsByClassName("img")[0];
       pic.addEventListener("click", () => {
         pic2 = pic.cloneNode();
+        // 只需要关注元素较视口的位置
         picToTop = pic.getBoundingClientRect().top;
         picToLeft = pic.getBoundingClientRect().left;
         picWidth = pic.width;
@@ -64,17 +65,15 @@
           // 7，隐藏原图片
           pic.style.visibility = "hidden";
           // 8，设置预览图片展示宽度以及位置
-          pic2.style.position = "absolute";
           pic2.style.transition = "all .3s";
-        //   pic2.style.willChange = "auto";
+          pic2.style.willChange = "transform";
           //   pic2.style.width = "80%";
           pic2.style.left = "50%";
           pic2.style.top = `50%`;
-          pic2.style.transform=`scale(1.5) translate(-${Math.floor(picWidth/2)}px,-${Math.floor(picHeight/2)}px)`
+          pic2.style.transform=`scale(1.5) translate(-${Math.floor(picWidth/2/1.5)}px,-${Math.floor(picHeight/2/1.5)}px)`
         }, 0);
         mask.addEventListener("click", function () {
           // 10，预览图回到原图位置
-        //   pic2.style.width = `${picWidth}px`;
           pic2.style.left = `${picToLeft}px`;
           pic2.style.top = `${picToTop}px`;
           pic2.style.transform = "";

@@ -1,6 +1,7 @@
 import { StateCreator, create } from "zustand";
 import { persist } from "zustand/middleware";
 import axios from "axios";
+// import { create } from "./my-zustand";
 
 interface IPerson {
   name: string;
@@ -16,13 +17,24 @@ interface IList {
   list: Item[];
   fetchData: (url: string) => Promise<void>;
 }
-export const usePersonStore = create<IPerson>()((set) => ({
-  name: "xj",
-  age: 18,
-  increase: () => {
-    set((state: IPerson) => ({ age: state.age + 1 }));
-  },
-}));
+
+const logMiddleware = (fun) => (set, get, store) => {
+  const logSet = (...args) => {
+    console.log(get(), store);
+    return set(...args);
+  };
+  return fun(logSet, get, store);
+};
+export const usePersonStore = create<IPerson>(
+  logMiddleware((set) => ({
+    name: "xj",
+    age: 18,
+    increase: () => {
+      set((state: IPerson) => ({ age: state.age + 1 }));
+    },
+  }))
+);
+// export const subPerson=usePersonStore.subscribe()
 
 export const useFishStore = create<IList>((set) => ({
   list: [],
@@ -56,32 +68,35 @@ const store: StateCreator<IFruits, [], [["zustand/persist", unknown]]> =
 export const useFruitsStore = create<IFruits, [["zustand/persist", unknown]]>(
   store
 );
-interface IUser{
-    id:string,
-    name:string,
-    email:string
+interface IUser {
+  id: string;
+  name: string;
+  email: string;
 }
-interface IUserStore{
-    user:IUser,
-    setUser:(user:IUser)=>void
+interface IUserStore {
+  user: IUser;
+  setUser: (user: IUser) => void;
 }
-const userStore: StateCreator<IUserStore, [], [["zustand/persist", unknown]]>=persist(
-    (set)=>({
-        user:{
-            id:'1',
-            name:'',
-            email:''
-        },
-        setUser:(userInfo:IUser)=>{
-            set((state:IUserStore)=>({
-                user:{
-                    ...state.user,
-                    ...userInfo
-                }
-            }))
-        }
+const userStore: StateCreator<IUserStore, [], [["zustand/persist", unknown]]> =
+  persist(
+    (set) => ({
+      user: {
+        id: "1",
+        name: "",
+        email: "",
+      },
+      setUser: (userInfo: IUser) => {
+        set((state: IUserStore) => ({
+          user: {
+            ...state.user,
+            ...userInfo,
+          },
+        }));
+      },
     }),
-    {name:'user'}
-)
+    { name: "user" }
+  );
 
-export const useUserStore=create<IUserStore, [["zustand/persist", unknown]]>(userStore)
+export const useUserStore = create<IUserStore, [["zustand/persist", unknown]]>(
+  userStore
+);

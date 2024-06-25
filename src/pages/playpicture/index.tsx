@@ -1,4 +1,4 @@
-import {  Slider } from "antd";
+import { Slider } from "antd";
 import React, { useEffect, useMemo, useState } from "react";
 import "./index.less";
 import src from "../../assets/头像2.jpg";
@@ -11,8 +11,6 @@ interface IconSliderProps {
 }
 function PlayPicture() {
   const { params, updateParams } = useParams();
-  // const [value, setValue] = useState(10);
-  console.log(params);
 
   const styles = useMemo(() => {
     let styles = { width: "200px", height: "200px" };
@@ -27,7 +25,6 @@ function PlayPicture() {
       }
       styles = { ...styles, [param]: value };
     }
-    console.log(styles);
     return styles;
   }, [params]);
 
@@ -60,36 +57,35 @@ function PlayPicture() {
     </div>
   );
 }
-const IconSlider: React.FC<IconSliderProps> = 
-  (props) => {
-    const { param, initValue = 50, setStyle } = props;
-    const [value, setValue] = useState(initValue);
+const IconSlider: React.FC<IconSliderProps> = (props) => {
+  const { param, initValue = 50, setStyle } = props;
+  const [value, setValue] = useState(initValue);
 
-    useEffect(() => {
-      setStyle(initValue);
-    }, []);
+  useEffect(() => {
+    setStyle(initValue);
+  }, []);
 
-    return (
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+      }}
+    >
+      <span style={{ marginRight: "10px" }}>{param}: </span>
+      <Slider
+        max={300}
+        min={0}
+        style={{ width: "200px" }}
+        onChange={(value) => {
+          setValue(value);
+          setStyle(value);
         }}
-      >
-        <span style={{ marginRight: "10px" }}>{param}: </span>
-        <Slider
-          max={300}
-          min={0}
-          style={{ width: "200px" }}
-          onChange={(value) => {
-            setValue(value);
-            setStyle(value);
-          }}
-          value={value}
-        />
-      </div>
-    );
-  }
+        value={value}
+      />
+    </div>
+  );
+};
 
 export default PlayPicture;

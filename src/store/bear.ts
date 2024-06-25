@@ -43,23 +43,20 @@ interface Params {
 export const useParams = create<Params>((set) => ({
   params: {
     filter: {
-      contrast: '(100%)',
-      grayscale: '(0%)',
     },
   },
+  // 设置filter: a() b() c();这样的复合属性
   updateParams: (property: string, subProperty: string, value: string) =>
     set(
       produce((state: Params) => {
         state.params[property][subProperty] = value;
       })
     ),
+    // 设置margin:10px；这样的简单属性
   updateParam: (property: string, value: string) =>
     set(
       produce((state: Params) => {
         state.params[property] = value;
       })
     ),
-  // addUser:(name:string)=>set(produce((state)=>{state.obj.user2={name}})),
-  // updateName: (name:string) =>
-  //   set(produce((state) => { state.obj.user.name=name })),
 }));

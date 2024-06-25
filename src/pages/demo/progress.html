@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .container {
+        text-align: center;
+        margin: 100px auto;
+      }
+      .progress-circle {
+        --percent: 0; /* 百分数 */
+        --size: 180px; /* 尺寸大小 */
+        --border-width: 10px; /* 环形宽度（粗细） */
+        --color: #7856d7; /* 主色 */
+        --inactive-color: #ccc; /* 辅助色 */
+        --gap-degree: 90;
+
+        width: var(--size);
+        height: var(--size);
+        /* 从12点位置开始 */
+        transform: rotate(-90deg);
+        border-radius: 50%;
+      }
+
+      .progress-circle > circle {
+        cx: calc(var(--size) / 2);
+        cy: calc(var(--size) / 2);
+        r: calc((var(--size) - var(--border-width)) / 2);
+        fill: none;
+        stroke-width: var(--border-width);
+        /* 端点换成圆形 */
+        stroke-linecap: round;
+        transition: stroke-dasharray 0.4s linear, stroke 0.3s;
+      }
+      .progress-value {
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <svg class="progress-circle">
+        <circle
+          class="progress-value"
+          stroke="#ccc"
+          style="
+            transform: scale(1, -1) translateY(-180px);
+            stroke-dasharray: calc(
+                2 * 3.1415 * (var(--size) - var(--border-width)) / 2 *
+                  (calc(100 - var(--percent)) / 100)
+              ),
+              calc( 2 * 3.1415 * (var(--size) - var(--border-width)) / 2);
+            stroke-dashoffset: 24px;
+          "
+        />
+        <circle
+          class="progress-value"
+          stroke="var(--color)"
+          style="
+            stroke-dasharray: calc(
+                2 * 3.1415 * (var(--size) - var(--border-width)) / 2 *
+                  (var(--percent) / 100)
+              ),
+              1000;
+            stroke-dashoffset: -12px;
+            opacity: var(--percent);
+          "
+        />
+      </svg>
+      <p>
+        <label>进度</label>
+        <input
+          type="range"
+          min="0"
+          max="100"
+          value="0"
+          oninput="changeDemo(this, '--percent')"
+        />
+      </p>
+    </div>
+    <script>
+      const progressEl = document.querySelector(".progress-circle");
+      const underCircle = document.getElementsByClassName("progress-value")[0];
+
+      function changeDemo({ value }, property, unit = "") {
+        progressEl.style.setProperty(property, value + unit);
+      }
+      (function () {
+        if (underCircle) {
+          console.log(111);
+
+          underCircle.style.setProperty(
+            "stroke-dasharray",
+            "calc( 2 * 3.1415 * (var(--size) - var(--border-width)) / 1),1000;"
+          );
+        }
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,34 @@
+
+@font-size-sml:14px;
+@font-size-mid:16px;
+@font-size-lag:20px;
+
+.font-size-md{
+    font-size: @font-size-mid;    
+}
+
+#bundle(){
+    .color-red{
+        color: red;
+    }
+}
+#bundle(){
+    .color-blue{
+        color: blue;
+    }
+}
+.mixin(dark,@color){
+    color: darken(@color,10%);
+}
+.mixin(light,@color){
+    color: lighten(@color,10%);
+}
+
+// 条件语句
+.isDark(@color) when (lightness(@color)>=50%){
+    background-color: black;
+}
+// 还可以用not关键字
+.isNotDark(@color) when not (lightness(@color)>=50%){
+    background-color: #fff;
+}
